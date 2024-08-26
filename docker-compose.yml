@@ -1,0 +1,42 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      - db
+    env_file:
+      - .env
+    environment:
+      - INITIAL_DATE=${INITIAL_DATE}
+    networks:
+      - reportomini 
+    volumes:
+      - app-src:/usr/src/app
+
+  db:
+    image: postgres:16.3
+    healthcheck:
+      test: /usr/bin/pg_isready
+      interval: 10s
+      timeout: 30s
+      retries: 120
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+    ports:
+    - "5432:5432"
+    networks:
+      - reportomini 
+
+volumes:
+  db-data:
+  app-src:
+
+networks:
+  reportomini:
+      name: reportomini

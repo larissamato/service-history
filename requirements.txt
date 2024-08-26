@@ -1,0 +1,6 @@
+psycopg2-binary
+psycopg2
+requests
+load_dotenv
+sqlalchemy
+alembic
