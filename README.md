@@ -2,7 +2,7 @@
 
 This project is a Python service that collects data from Omini and saves it to a PostgreSQL database. It uses **Alembic** for database migration management.
 
-## Prerequisites
+## Requirements
 
 - Docker
 - Docker Compose
